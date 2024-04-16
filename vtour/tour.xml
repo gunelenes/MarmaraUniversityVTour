@@ -1,0 +1,877 @@
+﻿<krpano version="1.19" title="M.Ü. T.B.M.Y.O. SANAL TUR" onstart="initiate_menu(); loadscene(pano1_1,null,MERGE);">
+
+	<include url="skin/vtourskin.xml" />
+	
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               gyro="true"
+	               webvr="true"
+	               webvr_gyro_keeplookingdirection="false"
+	               webvr_prev_next_hotspots="true"
+	               littleplanetintro="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="true"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="true"
+	               tooltips_hotspots="true"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+
+
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+<contextmenu fullscreen="true" versioninfo="true" enterfs="Tam Ekran"
+             exitfs="Tam Ekrandan Çık">
+		
+		
+		<item name="link" caption="M.Ü. Teknik Bilimler M.Y.O. " onclick="openurl('https://tbmyo.marmara.edu.tr')" seperator="true" devices="html5"/>
+		<item name="cc" caption="Kontrol Modunu Değiştir" onclick="cm_changecontrolmode();"  separator="true" />
+		<item name="nv" caption="Normal Görünüm"        onclick="cm_normal_view();"        showif="view.vlookatrange == 180" separator="true"      />
+		<item name="fv" caption="Balıkgözü Görünüm"       onclick="cm_fisheye_view();"       showif="view.vlookatrange == 180" devices="flash|webgl" />
+		<item name="sv" caption="Stereografik Görünüm" onclick="cm_stereographic_view();" showif="view.vlookatrange == 180" devices="flash|webgl" />
+		<item name="av" caption="Mimari Görünüm" onclick="cm_architectural_view();" showif="view.vlookatrange == 180"                       />
+		<item name="pv" caption="Küresel Görünüm"       onclick="cm_pannini_view();"       showif="view.vlookatrange == 180" devices="flash|webgl" />
+		<item name="lp" caption="Gezegen Görünüm" onclick="cm_littleplanet_view();"  showif="view.vlookatrange == 180" devices="flash|webgl" />
+		
+	</contextmenu>
+
+
+	<action name="cm_changecontrolmode">
+		switch(control.mouse, moveto, drag);
+		switch(control.touch, moveto, drag);
+	</action>
+
+	<action name="cm_look_straight">
+		if(view.vlookat LT -80 OR view.vlookat GT +80,
+			tween(view.vlookat, 0.0, 1.0, easeInOutSine);
+			tween(view.fov,     100, distance(150,0.8));
+		  );
+	</action>
+
+	<action name="cm_normal_view">
+		cm_look_straight();
+		tween(view.architectural, 0.0, distance(1.0,0.5));
+		tween(view.pannini,       0.0, distance(1.0,0.5));
+		tween(view.fisheye,       0.0, distance(1.0,0.5));
+	</action>
+
+	<action name="cm_architectural_view">
+		cm_look_straight();
+		tween(view.architectural, 1.0, distance(1.0,0.5));
+		tween(view.pannini,       0.0, distance(1.0,0.5));
+		tween(view.fisheye,       0.0, distance(1.0,0.5));
+	</action>
+
+	<action name="cm_fisheye_view">
+		cm_look_straight();
+		tween(view.architectural, 0.0,  distance(1.0,0.5));
+		tween(view.pannini,       0.0,  distance(1.0,0.5));
+		tween(view.fisheye,       0.35, distance(1.0,0.5));
+	</action>
+
+	<action name="cm_stereographic_view">
+		cm_look_straight();
+		tween(view.architectural, 0.0, distance(1.0,0.5));
+		tween(view.pannini,       0.0, distance(1.0,0.5));
+		tween(view.fisheye,       1.0, distance(1.0,0.8));
+	</action>
+
+	<action name="cm_pannini_view">
+		cm_look_straight();
+		tween(view.architectural, 0.0, distance(1.0,0.5));
+		tween(view.pannini,       1.0, distance(1.0,0.8));
+		if(view.fisheye LT 0.1,
+			tween(view.fisheye, 1.0, distance(1.0,0.8));
+		  );
+	</action>
+
+	<action name="cm_littleplanet_view">
+		tween(view.architectural, 0.0, distance(1.0,0.5));
+		tween(view.pannini,       0.0, distance(1.0,0.5));
+		tween(view.fisheye,       1.0, distance(1.0,0.8));
+		tween(view.fov,           150, distance(150,0.8));
+		tween(view.vlookat,        90, distance(100,0.8));
+		add(new_hlookat, view.hlookat, 123.0);
+		tween(view.hlookat, get(new_hlookat), distance(100,0.8));
+	</action>
+	
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(device.desktop, 			skin_hideskin(instant);		);
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+	</action>
+
+
+	
+	<scene name="scene_1-mu_kampus_dis" title="1-mu_kampus_dis" onstart="" thumburl="panos/1-mu_kampus_dis.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="96.544" vlookat="-0.635" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/1-mu_kampus_dis.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/1-mu_kampus_dis.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/1-mu_kampus_dis.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/1-mu_kampus_dis.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="98.362" atv="-4.262" linkedscene="scene_2-mu_kampus_ic" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ İÇ KAPI" />
+	</scene>
+
+	<scene name="scene_10-TEF_KAT3_K2" title="10-TEF_KAT3_K2" onstart="" thumburl="panos/10-TEF_KAT3_K2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="274.879" vlookat="9.218" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/10-TEF_KAT3_K2.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/10-TEF_KAT3_K2.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/10-TEF_KAT3_K2.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="131.994" atv="3.477" linkedscene="scene_9-tef_kat3_k1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 1. KORİDOR"/>
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="106.111" atv="-0.038" linkedscene="scene_20-h__sey__n_duran_myo_sekreter__" distorted="false" handcursor="true" tooltip="HÜSEYİN DURAN - T.B.M.Y.O. SEKRETERİ  "/>
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="-51.807" atv="0.315" linkedscene="scene_11-tef_kat3_k3" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 3. KORİDOR " />
+		<hotspot name="spot7" style="skin_hotspotstyle" ath="-28.925" atv="-1.789" linkedscene="scene_18-sekreterl__k" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. MUHASEBE "/>
+		<hotspot name="spot8" style="skin_hotspotstyle" ath="-144.582" atv="0.108" linkedscene="scene_12-ar___g__r__emre___anayaz-pinar_krom" distorted="false" handcursor="true" tooltip="ARŞ. GÖR. EMRE ÇANAYAZ - ARŞ. GÖR. PINAR KROM AYDIN " /></scene>
+
+	<scene name="scene_11-TEF_KAT3_K3" title="11-TEF_KAT3_K3" onstart="" thumburl="panos/11-TEF_KAT3_K3.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-156.391" vlookat="-1.452" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/11-TEF_KAT3_K3.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/11-TEF_KAT3_K3.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/11-TEF_KAT3_K3.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="24.640" atv="3.208" linkedscene="scene_10-tef_kat3_k2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 2. KORİDOR "/>
+
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-166.585" atv="-3.655" linkedscene="scene_13-aysun_a_ve_ercan_e" distorted="false" handcursor="true" tooltip="DR. ÖĞR. ÜYESİ ZEHRA AYSUN ALTIKARDEŞ - ÖĞR. GÖR. ERCAN ERKALKAN "/>
+
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="-140.327" atv="-1.525" linkedscene="scene_16-vedat_topuz_sekreterl__k" distorted="false" handcursor="true" tooltip="DOÇ. DR. VEDAT TOPUZ - SEKRETERLİK"/>	
+		<hotspot name="spot7" style="skin_hotspotstyle" ath="110.163" atv="-1.039" linkedscene="scene_17-vedat_topuz___ali__ma_odasi" distorted="false" handcursor="true" tooltip="DOÇ. DR. VEDAT TOPUZ - ÇALIŞMA ODASI"/>
+		<hotspot name="spot9" style="skin_hotspotstyle" ath="-171.387" atv="-2.882" linkedscene="scene_29-oda1" distorted="false" handcursor="true" tooltip=" DOÇ. DR. NURİYE İŞGÖREN"/></scene>
+
+	<scene name="scene_12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM" title="12-ARŞ GÖR_ EMRE ÇANAYAZ-PINAR KROM" onstart="" thumburl="panos/12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-78.539" vlookat="2.938" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-76.559" atv="0.552" linkedscene="scene_10-tef_kat3_k2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 2. KORİDOR "/>
+
+	</scene>
+
+	<scene name="scene_13-AYSUN_A_VE_ERCAN_E" title="13-AYSUN_A VE ERCAN E" onstart="" thumburl="panos/13-AYSUN_A_VE_ERCAN_E.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/13-AYSUN_A_VE_ERCAN_E.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/13-AYSUN_A_VE_ERCAN_E.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/13-AYSUN_A_VE_ERCAN_E.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/13-AYSUN_A_VE_ERCAN_E.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-14.359" atv="-2.094" linkedscene="scene_11-tef_kat3_k3" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 3. KORİDOR "/>
+
+	</scene>
+
+	<scene name="scene_14-B__YOMED__KAL_C__HAZ_TEKN__LAB" title="14-BİYOMEDİKAL CİHAZ TEKN. LAB" onstart="" thumburl="panos/14-B__YOMED__KAL_C__HAZ_TEKN__LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-268.724" vlookat="-7.717" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/14-B__YOMED__KAL_C__HAZ_TEKN__LAB.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/14-B__YOMED__KAL_C__HAZ_TEKN__LAB.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/14-B__YOMED__KAL_C__HAZ_TEKN__LAB.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/14-B__YOMED__KAL_C__HAZ_TEKN__LAB.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="73.332" atv="-0.314" linkedscene="scene_8-tef_kat2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 2. KAT" /></scene>
+
+	<scene name="scene_15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__" title="15-DOÇ_DR_VEDAT TOPUZ MYO_MÜDÜRÜ" onstart="" thumburl="panos/15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-44.630" vlookat="5.355" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="120.194" atv="4.156" linkedscene="scene_16-vedat_topuz_sekreterl__k" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. DOÇ. DR. VEDAT TOPUZ - SEKRETERLİK" />
+
+	</scene>
+
+	<scene name="scene_16-VEDAT_TOPUZ_SEKRETERL__K" title="16-VEDAT TOPUZ SEKRETERLİK" onstart="" thumburl="panos/16-VEDAT_TOPUZ_SEKRETERL__K.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-5.990" vlookat="3.713" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/16-VEDAT_TOPUZ_SEKRETERL__K.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/16-VEDAT_TOPUZ_SEKRETERL__K.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/16-VEDAT_TOPUZ_SEKRETERL__K.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/16-VEDAT_TOPUZ_SEKRETERL__K.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-51.515" atv="3.618" linkedscene="scene_11-tef_kat3_k3" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 3. KORİDOR "/>
+
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="132.116" atv="7.902" linkedscene="scene_15-do___dr_vedat_topuz_myo_m__d__r__" distorted="false" handcursor="true" tooltip="DOÇ. DR. VEDAT TOPUZ - T.B.M.Y.O. MÜDÜRÜ "/>	</scene>
+
+	<scene name="scene_17-VEDAT_TOPUZ___ALI__MA_ODASI" title="17-VEDAT TOPUZ ÇALIŞMA ODASI" onstart="" thumburl="panos/17-VEDAT_TOPUZ___ALI__MA_ODASI.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="80.200" vlookat="3.281" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/17-VEDAT_TOPUZ___ALI__MA_ODASI.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/17-VEDAT_TOPUZ___ALI__MA_ODASI.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/17-VEDAT_TOPUZ___ALI__MA_ODASI.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-109.262" atv="7.763" linkedscene="scene_11-tef_kat3_k3" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 3. KORİDOR " />
+
+	</scene>
+
+	<scene name="scene_18-SEKRETERL__K" title="18-SEKRETERLİK" onstart="" thumburl="panos/18-SEKRETERL__K.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-453.268" vlookat="4.141" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/18-SEKRETERL__K.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/18-SEKRETERL__K.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/18-SEKRETERL__K.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="90.611" atv="1.427" linkedscene="scene_10-tef_kat3_k2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 2. KORİDOR "/>
+	</scene>
+
+	<scene name="scene_19-OGRENC_____SLER__" title="19-OGRENCİ İSLERİ" onstart="" thumburl="panos/19-OGRENC_____SLER__.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-42.372" vlookat="3.291" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/19-OGRENC_____SLER__.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/19-OGRENC_____SLER__.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/19-OGRENC_____SLER__.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-49.013" atv="1.028" linkedscene="scene_9-tef_kat3_k1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 1. KORİDOR" /></scene>
+
+	<scene name="scene_2-mu_kampus_ic" title="2-mu_kampus_ic" onstart="" thumburl="panos/2-mu_kampus_ic.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-205.163" vlookat="-3.968" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2-mu_kampus_ic.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/2-mu_kampus_ic.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/2-mu_kampus_ic.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/2-mu_kampus_ic.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-80.605" atv="-4.087" linkedscene="scene_1-mu_kampus_dis" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ DIŞ KAPI" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-155.066" atv="-4.031" linkedscene="scene_3-kampus_yol2" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ SÜREKLİ EĞİTİM MERKEZİ" /></scene>
+
+	<scene name="scene_20-H__SEY__N_DURAN_MYO_SEKRETER__" title="20-HÜSEYİN DURAN_MYO SEKRETERİ" onstart="" thumburl="panos/20-H__SEY__N_DURAN_MYO_SEKRETER__.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="81.945" vlookat="12.060" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/20-H__SEY__N_DURAN_MYO_SEKRETER__.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/20-H__SEY__N_DURAN_MYO_SEKRETER__.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/20-H__SEY__N_DURAN_MYO_SEKRETER__.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/20-H__SEY__N_DURAN_MYO_SEKRETER__.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="15.671" atv="11.006" linkedscene="scene_10-tef_kat3_k2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT" />	</scene>
+
+	<scene name="scene_21-ELEKTR__K_VE_ENERJ___LAB" title="21-ELEKTRİK VE ENERJİ LAB" onstart="" thumburl="panos/21-ELEKTR__K_VE_ENERJ___LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-128.084" vlookat="-0.370" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/21-ELEKTR__K_VE_ENERJ___LAB.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/21-ELEKTR__K_VE_ENERJ___LAB.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/21-ELEKTR__K_VE_ENERJ___LAB.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-150.717" atv="4.821" linkedscene="scene_7-tef_kat1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 1. KAT" />	</scene>
+
+	<scene name="scene_22-ELEKTRON__K_TEKN__LAB" title="22-ELEKTRONİK TEKN. LAB" onstart="" thumburl="panos/22-ELEKTRON__K_TEKN__LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/22-ELEKTRON__K_TEKN__LAB.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/22-ELEKTRON__K_TEKN__LAB.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/22-ELEKTRON__K_TEKN__LAB.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/22-ELEKTRON__K_TEKN__LAB.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="150.146" atv="0.055" linkedscene="scene_8-tef_kat2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 2. KAT "/>
+	</scene>
+
+	<scene name="scene_23-F__BEROPT__K_LAB" title="23-FİBEROPTİK LAB" onstart="" thumburl="panos/23-F__BEROPT__K_LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-3.604" vlookat="0.827" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/23-F__BEROPT__K_LAB.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/23-F__BEROPT__K_LAB.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/23-F__BEROPT__K_LAB.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/23-F__BEROPT__K_LAB.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-33.368" atv="-4.651" linkedscene="scene_7-tef_kat1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 1. KAT" />	</scene>
+
+	<scene name="scene_24-HABERLE__ME_TEKN__LAB" title="24-HABERLEŞME TEKN. LAB" onstart="" thumburl="panos/24-HABERLE__ME_TEKN__LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-290.815" vlookat="5.840" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/24-HABERLE__ME_TEKN__LAB.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/24-HABERLE__ME_TEKN__LAB.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/24-HABERLE__ME_TEKN__LAB.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/24-HABERLE__ME_TEKN__LAB.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="65.757" atv="-4.657" linkedscene="scene_8-tef_kat2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 2. KAT"/>
+
+	</scene>
+
+	<scene name="scene_25-KONFERANS_SALONU" title="25-KONFERANS SALONU" onstart="" thumburl="panos/25-KONFERANS_SALONU.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="146.473" vlookat="5.968" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/25-KONFERANS_SALONU.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/25-KONFERANS_SALONU.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/25-KONFERANS_SALONU.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/25-KONFERANS_SALONU.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="124.193" atv="-1.911" linkedscene="scene_7-tef_kat1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 1. KAT"/>
+
+	</scene>
+
+	<scene name="scene_26-LAB_A" title="26-LAB A" onstart="" thumburl="panos/26-LAB_A.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-84.831" vlookat="-11.390" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/26-LAB_A.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/26-LAB_A.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/26-LAB_A.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-71.221" atv="-11.844" linkedscene="scene_8-tef_kat2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 2. KAT "/>
+
+	</scene>
+
+	<scene name="scene_27-LAB_B" title="27-LAB B" onstart="" thumburl="panos/27-LAB_B.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-0.001" vlookat="0.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/27-LAB_B.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/27-LAB_B.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/27-LAB_B.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="27.998" atv="1.909" linkedscene="scene_9-tef_kat3_k1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 1. KORİDOR"/>
+
+	</scene>
+
+	<scene name="scene_28-LAB_C" title="28-LAB C" onstart="" thumburl="panos/28-LAB_C.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="27.742" vlookat="4.966" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/28-LAB_C.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/28-LAB_C.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/28-LAB_C.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/28-LAB_C.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-2.112" atv="3.411" linkedscene="scene_9-tef_kat3_k1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 1. KORİDOR"/>
+
+	</scene>
+
+	<scene name="scene_29-ODA1" title="29-ODA1" onstart="" thumburl="panos/29-ODA1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="170.069" vlookat="13.860" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/29-ODA1.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/29-ODA1.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/29-ODA1.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/29-ODA1.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="9.840" atv="3.172" linkedscene="scene_11-tef_kat3_k3" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 3. KORİDOR "/>
+
+	</scene>
+
+	<scene name="scene_3-kampus_yol2" title="3-kampus_yol2" onstart="" thumburl="panos/3-kampus_yol2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="148.354" vlookat="0.188" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/3-kampus_yol2.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/3-kampus_yol2.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/3-kampus_yol2.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/3-kampus_yol2.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="17.776" atv="0.696" linkedscene="scene_2-mu_kampus_ic" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ İÇ KAPI"/>
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-178.251" atv="3.040" linkedscene="scene_4-kampus_yol1" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. OTOPARK"/>	</scene>
+
+	<scene name="scene_30-TEF_A212" title="30-TEF_A212" onstart="" thumburl="panos/30-TEF_A212.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-58.962" vlookat="5.340" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/30-TEF_A212.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/30-TEF_A212.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/30-TEF_A212.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-18.966" atv="-1.205" linkedscene="scene_8-tef_kat2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 2. KAT " />
+
+	</scene>
+
+	<scene name="scene_31-TEF_ON" title="31-TEF_ON" onstart="" thumburl="panos/31-TEF_ON.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="145.945" vlookat="-7.097" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/31-TEF_ON.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/31-TEF_ON.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/31-TEF_ON.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-170.714" atv="-7.605" linkedscene="scene_32-tef_main_g__r__s" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. GİRİŞ"/>
+
+	</scene>
+
+	<scene name="scene_32-TEF_MAIN_G__R__S" title="32-TEF_MAIN_GİRİS" onstart="" thumburl="panos/32-TEF_MAIN_G__R__S.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="118.602" vlookat="1.988" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/32-TEF_MAIN_G__R__S.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/32-TEF_MAIN_G__R__S.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/32-TEF_MAIN_G__R__S.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="79.877" atv="-3.285" linkedscene="scene_33-tef_main_kapi" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ÜST KAPI"/>	
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="154.836" atv="-2.611" linkedscene="scene_34-tef_arka" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ARKA BAHÇE" /> 
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="-58.909" atv="-0.152" linkedscene="scene_31-tef_on" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. ÖN KAPI"/></scene>
+
+	<scene name="scene_33-TEF_MAIN_KAPI" title="33-TEF_MAIN_KAPI" onstart="" thumburl="panos/33-TEF_MAIN_KAPI.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="61.174" vlookat="-3.243" fovtype="MFOV" fov="129.358" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/33-TEF_MAIN_KAPI.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/33-TEF_MAIN_KAPI.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/33-TEF_MAIN_KAPI.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="35.468" atv="8.184" linkedscene="scene_7-tef_kat1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 1. KAT "/>
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="124.303" atv="-2.903" linkedscene="scene_32-tef_main_g__r__s" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. GİRİŞ "/>
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="24.463" atv="-9.417" linkedscene="scene_8-tef_kat2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 2. KAT" />
+
+
+			</scene>
+
+	<scene name="scene_34-TEF_ARKA" title="34-TEF_ARKA" onstart="" thumburl="panos/34-TEF_ARKA.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-10.242" vlookat="-14.557" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/34-TEF_ARKA.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/34-TEF_ARKA.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/34-TEF_ARKA.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="61.524" atv="-5.910" linkedscene="scene_6-tbmyo_anakapi" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ANA KAPI" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-93.643" atv="-9.184" linkedscene="scene_32-tef_main_g__r__s" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. GİRİŞ"/>
+
+	</scene>
+
+	<scene name="scene_35-ALT_SINIF" title="35-ALT SINIF" onstart="" thumburl="panos/35-ALT_SINIF.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-72.717" vlookat="4.544" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/35-ALT_SINIF.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/35-ALT_SINIF.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/35-ALT_SINIF.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/35-ALT_SINIF.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-76.465" atv="0.881" linkedscene="scene_7-tef_kat1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 1.KAT "/>
+
+	</scene>
+
+	<scene name="scene_4-kampus_yol1" title="4-kampus_yol1" onstart="" thumburl="panos/4-kampus_yol1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="37.044" vlookat="-0.376" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/4-kampus_yol1.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/4-kampus_yol1.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/4-kampus_yol1.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/4-kampus_yol1.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-89.437" atv="0.682" linkedscene="scene_3-kampus_yol2" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ SÜREKLİ EĞİTİM MERKEZİ" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="50.721" atv="0.258" linkedscene="scene_5-kampus_capraz" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. ANA KAPI"/>
+
+	</scene>
+
+	<scene name="scene_5-kampus_capraz" title="5-kampus_capraz" onstart="" thumburl="panos/5-kampus_capraz.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="228.386" vlookat="-2.558" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/5-kampus_capraz.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/5-kampus_capraz.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/5-kampus_capraz.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/5-kampus_capraz.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="104.145" atv="0.819" linkedscene="scene_4-kampus_yol1" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. OTOPARK" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-96.290" atv="-0.139" linkedscene="scene_6-tbmyo_anakapi" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ANA KAPI" />
+
+	</scene>
+
+	<scene name="scene_6-tbmyo_anakapi" title="6-tbmyo_anakapi" onstart="" thumburl="panos/6-tbmyo_anakapi.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-202.736" vlookat="-12.215" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/6-tbmyo_anakapi.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/6-tbmyo_anakapi.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/6-tbmyo_anakapi.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/6-tbmyo_anakapi.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="178.152" atv="-4.933" linkedscene="scene_7-tef_kat1" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. 1. KAT" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="122.480" atv="-0.917" linkedscene="scene_34-tef_arka" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ARKA BAHÇE"/>
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="92.065" atv="-0.924" linkedscene="scene_5-kampus_capraz" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. ANA KAPI" />
+
+	</scene>
+
+	<scene name="scene_7-TEF_KAT1" title="7-TEF_KAT1" onstart="" thumburl="panos/7-TEF_KAT1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="16.043" vlookat="-4.350" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/7-TEF_KAT1.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/7-TEF_KAT1.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/7-TEF_KAT1.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-106.429" atv="-4.404" linkedscene="scene_6-tbmyo_anakapi" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ANA KAPI "/>
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-98.592" atv="-3.094" linkedscene="scene_25-konferans_salonu" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. KONFERANS SALONU"/>
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="-77.322" atv="1.377" linkedscene="scene_23-f__beropt__k_lab" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. FİBEROPTİK LAB." />
+		<hotspot name="spot7" style="skin_hotspotstyle" ath="57.439" atv="-0.396" linkedscene="scene_35-alt_sinif" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. MİKROİŞLEMCİ VE KONTROL LAB. "/>
+		<hotspot name="spot8" style="skin_hotspotstyle" ath="66.513" atv="-4.517" linkedscene="scene_33-tef_main_kapi" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ÜST KAPI "/>
+
+
+		<hotspot name="spot9" style="skin_hotspotstyle" ath="-93.618" atv="-2.319" linkedscene="scene_21-elektr__k_ve_enerj___lab" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. ELEKTRİK VE ENERJİ LAB."/>	</scene>
+
+	<scene name="scene_8-TEF_KAT2" title="8-TEF_KAT2" onstart="" thumburl="panos/8-TEF_KAT2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-230.877" vlookat="2.780" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/8-TEF_KAT2.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/8-TEF_KAT2.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/8-TEF_KAT2.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="161.752" atv="8.000" linkedscene="scene_33-tef_main_kapi" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. ÜST KAPI" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="155.583" atv="-8.445" linkedscene="scene_9-tef_kat3_k1" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3.KAT " />
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="-175.584" atv="0.409" linkedscene="scene_30-tef_a212" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. A212 "/>
+		<hotspot name="spot7" style="skin_hotspotstyle" ath="123.265" atv="-0.669" linkedscene="scene_26-lab_a" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. LAB A "/>
+		<hotspot name="spot8" style="skin_hotspotstyle" ath="-3.085" atv="-3.870" linkedscene="scene_14-b__yomed__kal_c__haz_tekn__lab" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. BİYOMEDİKAL CİHAZ TEKN. LAB."/>
+		<hotspot name="spot9" style="skin_hotspotstyle" ath="-18.411" atv="-4.158" linkedscene="scene_24-haberle__me_tekn__lab" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. HABERLEŞME TEKN. LAB."/>
+		<hotspot name="spot10" style="skin_hotspotstyle" ath="-11.584" atv="-5.051" linkedscene="scene_22-elektron__k_tekn__lab" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. ELEKTRONİK TEKN. LAB. "/>
+
+	</scene>
+
+	<scene name="scene_9-TEF_KAT3_K1" title="9-TEF_KAT3_K1" onstart="" thumburl="panos/9-TEF_KAT3_K1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-186.045" vlookat="5.890" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/9-TEF_KAT3_K1.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="1600" tiledimageheight="1600">
+				<cube url="panos/9-TEF_KAT3_K1.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/9-TEF_KAT3_K1.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-138.327" atv="1.500" linkedscene="scene_19-ogrenc_____sler__" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. ÖĞRENCİ İŞLERİ "/>
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-32.020" atv="27.295" linkedscene="scene_8-tef_kat2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 2. KAT " />
+
+	
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="12.799" atv="5.106" linkedscene="scene_28-lab_c" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. LAB C"/>
+		<hotspot name="spot7" style="skin_hotspotstyle" ath="21.867" atv="7.302" linkedscene="scene_27-lab_b" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. LAB B " />
+		<hotspot name="spot8" style="skin_hotspotstyle" ath="135.012" atv="7.404" linkedscene="scene_10-tef_kat3_k2" distorted="false" handcursor="true" tooltip="T.B.M.Y.O. 3. KAT 2. KORİDOR "/></scene>
+
+</krpano>

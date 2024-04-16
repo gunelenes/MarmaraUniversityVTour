@@ -1,0 +1,240 @@
+﻿<krpano>
+	<!-- Side Menu v1.0 (by Umalo) -->
+
+	<menu_settings background_width       ="250"
+	               background_x           ="0"
+	               background_y           ="0"
+	               menu_transparency      ="0.8"
+	               menu_max_number_objects="20"
+	               menu_bgcolor           ="0xf4f4f4"
+	               menu_0_text_x_start    ="0"
+	               menu_0_text_y_start    ="200"
+	               menu_0_text_y_step     ="30"
+	               row_height             ="30"
+	               menu_0_parent          ="menu_background"
+	               menu_0_parent_x        ="0"
+	               menu_0_parent_y        ="0"
+	               menu_0_onover_color_bcg="0xab9862"
+	               menu_0_onout_color_bcg ="0x000000"
+	               arrow_right_offset     ="12"
+	               arrow_upper_offset     ="11"
+	               line_upper_offset      ="11"
+	               line_height            ="1"
+	               line_transparency      ="0.4"
+	               x_right_offset         ="16"
+	               x_scale                ="0.8"
+	               btn_back_x             ="0"
+	               btn_back_y             ="0"
+	               btn_back_scale         ="1.3"
+	               btn_back_rotate        ="180"
+	               btn_back_left_offset   ="10"
+	               btn_back_upper_offset  ="-24"
+	               btn_menu_height        ="72"
+	               logo_width             ="150"
+	               logo_transparency      ="0.7"
+	               />
+
+	<plugin name="logo" url="gui_menu/logo.png" keep="true" visible="false" align="lefttop" x="0" y="20" alpha="1" handcursor="false" zorder="15"
+	        onloaded="set(new_x,get(menu_settings.background_width));dec(new_x,get(menu_settings.logo_width));div(new_x,2);set(x,get(new_x));set(visible,true);set(alpha,get(menu_settings.logo_transparency));"
+	        />
+
+	<plugin name="menu_background" keep="true" type="container" align="left" height="100%" zorder="4"
+	        onloaded="set(width,get(menu_settings.background_width));set(bgalpha,get(menu_settings.menu_transparency));set(bgcolor,get(menu_settings.menu_bgcolor));set(x,get(menu_settings.background_x));set(y,get(menu_settings.background_y));"
+	        />
+
+	<plugin name="submenu_x" url="%FIRSTXML%/gui_menu/x.png" keep="true" align="topleft" edge="topleft" visible="false" zorder="10"
+	        parent="menu_background"
+	        onloaded="
+	        	set(x_x,get(menu_settings.background_width));
+	        	dec(x_x,get(menu_settings.x_right_offset));
+	        	set(x,get(x_x));
+	        	set(x_y,get(menu_settings.menu_0_text_y_start));
+	        	inc(x_y,get(menu_settings.arrow_upper_offset));
+	        	dec(x_y,get(menu_settings.row_height));
+	        	set(y,get(x_y));
+	        	set(scale,get(menu_settings.x_scale));
+	        	set(visible,true);
+	        	set(plugin[submenu_x].onclick, switch_menu(0); slide_menu_left(); );
+	        	"
+	        />
+
+	<plugin name="submenu_back" url="%FIRSTXML%/gui_menu/arrow.png" keep="true" align="topleft" edge="topleft" visible="false" zorder="10"
+	        parent="menu_background"
+	        onloaded="
+	        	set(back_x,get(menu_settings.btn_back_x));
+	        	inc(back_x,get(menu_settings.btn_back_left_offset));
+	        	set(x,get(back_x));
+	        	set(back_y,get(menu_settings.menu_0_text_y_start));
+	        	dec(back_y,get(menu_settings.row_height));
+	        	dec(back_y,get(menu_settings.btn_back_upper_offset));
+	        	set(y,get(back_y));
+	        	set(scale,get(menu_settings.btn_back_scale));
+	        	set(rotate,get(menu_settings.btn_back_rotate));
+	        	set(plugin[submenu_back].onclick, switch_menu(0); );
+	        	"
+	        />
+
+	<plugin name="btn_menu" url="%FIRSTXML%/gui_menu/btn_menu.png" keep="true" align="topleft" edge="topleft" visible="false" zorder="10"
+	        onloaded="
+	        	set(height,get(menu_settings.btn_menu_height));set(back_x,get(menu_settings.btn_back_x));set(x,get(back_x));set(back_y,get(menu_settings.menu_0_text_y_start));set(y,get(back_y));
+	        	set(plugin[btn_menu].onclick, slide_menu_right(); );
+	        	"
+	        />
+
+	<action name="iniciraj_grupu_0">
+		copy(x_text_name_start,menu_settings.menu_0_text_x_start);
+		copy(y_text_name_start,menu_settings.menu_0_text_y_start); set(y_text_name_trenutno,get(y_text_name_start));
+		copy(checkbox_razmak,menu_settings.menu_0_text_y_step);
+
+		set(x_line,get(menu_settings.menu_0_parent_x));
+		set(y_line,get(menu_settings.menu_0_text_y_start));
+
+		set(x_arrow,get(menu_settings.background_width));
+		dec(x_arrow,get(menu_settings.arrow_right_offset));
+		set(y_arrow,get(menu_settings.menu_0_text_y_start));
+		inc(y_arrow,get(menu_settings.arrow_upper_offset));
+
+		for(set(i,1), i LE menu_settings.menu_max_number_objects, inc(i),
+			txtadd(menu_0,'menu_',get(i));
+			set(plugin[%menu_0].url,%FIRSTXML%/plugins/textfield.swf);
+			set(plugin[%menu_0].autoheight,false);
+			set(plugin[%menu_0].parent,get(menu_settings.menu_0_parent));
+			set(plugin[%menu_0].vcenter,true);
+			set(plugin[%menu_0].visible,true);
+			set(plugin[%menu_0].keep,true);
+			set(plugin[%menu_0].align,lefttop);
+			set(plugin[%menu_0].x,get(x_text_name_start));
+			set(plugin[%menu_0].y,get(y_text_name_trenutno));
+			set(plugin[%menu_0].width,get(menu_settings.background_width));
+			set(plugin[%menu_0].height,get(menu_settings.row_height));
+			set(plugin[%menu_0].children,false);
+			set(plugin[%menu_0].html,);
+			set(plugin[%menu_0].border,false);
+			set(plugin[%menu_0].background,false);
+			set(plugin[%menu_0].backgroundalpha,0);
+			set(plugin[%menu_0].handcursor,false);
+			inc(y_text_name_trenutno,get(checkbox_razmak));
+
+			<!-- INITIATE ARROWS -->
+			txtadd(arrow,'arrow_',get(i));
+			set(plugin[%arrow].url,%FIRSTXML%/gui_menu/arrow.png);
+			set(plugin[%arrow].parent,get(menu_settings.menu_0_parent));
+			set(plugin[%arrow].zorder,5);
+			set(plugin[%arrow].keep,true);
+			set(plugin[%arrow].visible,false);
+			set(plugin[%arrow].handcursor,true);
+			set(plugin[%arrow].x,get(x_arrow));
+			set(plugin[%arrow].y,get(y_arrow));
+			set(plugin[%arrow].align,topleft);
+			set(plugin[%arrow].edge,lefttop);
+			set(plugin[%arrow].enabled,false);
+			inc(y_arrow,get(checkbox_razmak));
+		);
+
+		for(set(i,0), i LE menu_settings.menu_max_number_objects, inc(i),
+			<!-- INITIATE LINES -->
+			txtadd(line,'line_',get(i));
+			set(plugin[%line].url,%FIRSTXML%/gui_menu/line.png);
+			set(plugin[%line].parent,get(menu_settings.menu_0_parent));
+			set(plugin[%line].zorder,5);
+			set(plugin[%line].keep,true);
+			set(plugin[%line].visible,false);
+			set(plugin[%line].handcursor,false);
+			set(plugin[%line].x,get(x_line));
+			set(plugin[%line].y,get(y_line));
+			set(plugin[%line].width,get(menu_settings.background_width));
+			set(plugin[%line].height,get(menu_settings.line_height));
+			set(plugin[%line].align,topleft);
+			set(plugin[%line].edge,lefttop);
+			set(plugin[%line].alpha,get(menu_settings.line_transparency));
+			inc(y_line,get(checkbox_razmak));
+		);
+	</action>
+
+	<action name="switch_menu">
+		clean_menu();
+		ifnot(%1==0,set(plugin[submenu_back].visible,true);,set(plugin[submenu_back].visible,false););
+		txtadd(level,'level_',%1);
+		for(set(i,1), i LE group[get(level)].group.count, inc(i),
+			txtadd(menu_0,'menu_',get(i));  txtadd(object_0_html,'object_',get(i));
+			set(plugin[%menu_0].html,get(group[get(level)].group[get(object_0_html)].value));
+			set(plugin[%menu_0].css,font-family:Arial; font-size:11px; color:#000000; text-align:left; font-weight:bold);
+			set(plugin[%menu_0].onover,set(backgroundcolor, get(menu_settings.menu_0_onover_color_bcg)); set(backgroundalpha,1);set(css,font-family:Arial; font-size:11px; color:#ffffff; text-align:left; font-weight:bold););
+			set(plugin[%menu_0].onout,set(backgroundcolor, get(menu_settings.menu_0_onout_color_bcg)); set(backgroundalpha,0);set(css,font-family:Arial; font-size:11px; color:#000000; text-align:left; font-weight:bold););
+			set(plugin[%menu_0].onclick,get(group[get(level)].group[get(object_0_html)].link));
+			set(plugin[%menu_0].handcursor,true);
+			set(plugin[%menu_0].background,true);
+			set(plugin[%menu_0].visible,true);
+		);
+		define_lines(%1);
+		define_arrow(%1);
+	</action>
+
+	<action name="define_arrow">
+		txtadd(level,'level_',%1);
+		set(x_arrow,get(menu_settings.background_width));
+		dec(x_arrow,get(menu_settings.arrow_right_offset));
+		set(y_arrow,get(menu_settings.menu_0_text_y_start));
+		inc(y_arrow,get(menu_settings.arrow_upper_offset));
+		set(x_line,get(menu_settings.menu_0_parent_x));
+		set(y_line,get(menu_settings.menu_0_text_y_start));
+		for(set(i,1), i LE group[get(level)].group.count, inc(i),
+			txtadd(arrow,'arrow_',get(i));
+			set(plugin[%arrow].url,%FIRSTXML%/gui_menu/arrow.png);
+			set(plugin[%arrow].parent,get(menu_settings.menu_0_parent));
+			set(plugin[%arrow].zorder,5);
+			set(plugin[%arrow].keep,true);
+			set(plugin[%arrow].visible,true);
+			set(plugin[%arrow].handcursor,true);
+			set(plugin[%arrow].x,get(x_arrow));
+			set(plugin[%arrow].y,get(y_arrow));
+			set(plugin[%arrow].align,topleft);
+			set(plugin[%arrow].edge,lefttop);
+			set(plugin[%arrow].enabled,false);
+			inc(y_arrow,get(checkbox_razmak));
+		);
+	</action>
+
+	<action name="define_lines">
+		txtadd(level,'level_',%1);
+		set(x_line,get(menu_settings.menu_0_parent_x));
+		set(y_line,get(menu_settings.menu_0_text_y_start));
+		for(set(i,0), i LE group[get(level)].group.count, inc(i),
+			txtadd(line,'line_',get(i));
+			set(plugin[%line].url,%FIRSTXML%/gui_menu/line.png);
+			set(plugin[%line].parent,get(menu_settings.menu_0_parent));
+			set(plugin[%line].zorder,5);
+			set(plugin[%line].keep,true);
+			set(plugin[%line].visible,true);
+			set(plugin[%line].handcursor,false);
+			set(plugin[%line].x,get(x_line));
+			set(plugin[%line].y,get(y_line));
+			set(plugin[%line].width,get(menu_settings.background_width));
+			set(plugin[%line].height,get(menu_settings.line_height));
+			set(plugin[%line].align,topleft);
+			set(plugin[%line].edge,lefttop);
+			set(plugin[%line].alpha,get(menu_settings.line_transparency));
+			inc(y_line,get(checkbox_razmak));
+		);
+	</action>
+
+	<action name="clean_menu">
+		for(set(i,1), i LE menu_settings.menu_max_number_objects, inc(i),txtadd(menu_0,'menu_',get(i));set(plugin[%menu_0].html,);set(plugin[%menu_0].onclick,);set(plugin[%menu_0].handcursor,false);set(plugin[%menu_0].background,false););
+		for(set(i,1), i LE menu_settings.menu_max_number_objects, inc(i),txtadd(arrow,'arrow_',get(i));set(plugin[%arrow].visible,false););
+		for(set(i,0), i LE menu_settings.menu_max_number_objects, inc(i),txtadd(line,'line_',get(i));set(plugin[%line].visible,false););
+	</action>
+
+	<action name="slide_menu_left">
+		set(new_x,get(menu_settings.background_width));mul(new_x,-1);set(plugin[menu_background].x,get(new_x));delayedcall(0.1,set(plugin[btn_menu].visible,true););
+	</action>
+	
+	<action name="slide_menu_right">
+		set(new_x,get(background_x));set(plugin[menu_background].x,get(new_x));set(plugin[btn_menu].visible,false);
+	</action>
+
+	<action name="initiate_menu">
+		iniciraj_grupu_0();
+		switch_menu(0);
+	</action>
+
+</krpano>

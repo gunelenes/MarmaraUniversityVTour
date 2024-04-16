@@ -1,0 +1,519 @@
+<krpano version="1.19" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               gyro="true"
+	               webvr="true"
+	               webvr_gyro_keeplookingdirection="false"
+	               webvr_prev_next_hotspots="true"
+	               littleplanetintro="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="true"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="true"
+	               tooltips_hotspots="true"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+	</action>
+
+
+	
+	<scene name="scene_1-mu_kampus_dis" title="1-mu_kampus_dis" onstart="" thumburl="panos/1-mu_kampus_dis.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="97.171" vlookat="-10.094" fovtype="MFOV" fov="124.792" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/1-mu_kampus_dis.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/1-mu_kampus_dis.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="98.625" atv="-4.774" linkedscene="scene_2-mu_kampus_ic" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ İÇ KAPI"/>
+
+	</scene>
+
+	<scene name="scene_10-TEF_KAT3_K2" title="10-TEF_KAT3_K2" onstart="" thumburl="panos/10-TEF_KAT3_K2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/10-TEF_KAT3_K2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/10-TEF_KAT3_K2.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_11-TEF_KAT3_K3" title="11-TEF_KAT3_K3" onstart="" thumburl="panos/11-TEF_KAT3_K3.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/11-TEF_KAT3_K3.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/11-TEF_KAT3_K3.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM" title="12-ARŞ GÖR_ EMRE ÇANAYAZ-PINAR KROM" onstart="" thumburl="panos/12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/12-AR___G__R__EMRE___ANAYAZ-PINAR_KROM.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_13-AYSUN_A_VE_ERCAN_E" title="13-AYSUN_A VE ERCAN E" onstart="" thumburl="panos/13-AYSUN_A_VE_ERCAN_E.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/13-AYSUN_A_VE_ERCAN_E.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/13-AYSUN_A_VE_ERCAN_E.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_14-B__YOMED__KAL_C__HAZ_TEKN__LAB" title="14-BİYOMEDİKAL CİHAZ TEKN. LAB" onstart="" thumburl="panos/14-B__YOMED__KAL_C__HAZ_TEKN__LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/14-B__YOMED__KAL_C__HAZ_TEKN__LAB.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/14-B__YOMED__KAL_C__HAZ_TEKN__LAB.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__" title="15-DOÇ_DR_VEDAT TOPUZ MYO_MÜDÜRÜ" onstart="" thumburl="panos/15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/15-DO___DR_VEDAT_TOPUZ_MYO_M__D__R__.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_16-VEDAT_TOPUZ_SEKRETERL__K" title="16-VEDAT TOPUZ SEKRETERLİK" onstart="" thumburl="panos/16-VEDAT_TOPUZ_SEKRETERL__K.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/16-VEDAT_TOPUZ_SEKRETERL__K.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/16-VEDAT_TOPUZ_SEKRETERL__K.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_17-VEDAT_TOPUZ___ALI__MA_ODASI" title="17-VEDAT TOPUZ ÇALIŞMA ODASI" onstart="" thumburl="panos/17-VEDAT_TOPUZ___ALI__MA_ODASI.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/17-VEDAT_TOPUZ___ALI__MA_ODASI.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/17-VEDAT_TOPUZ___ALI__MA_ODASI.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_18-SEKRETERL__K" title="18-SEKRETERLİK" onstart="" thumburl="panos/18-SEKRETERL__K.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/18-SEKRETERL__K.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/18-SEKRETERL__K.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_19-OGRENC_____SLER__" title="19-OGRENCİ İSLERİ" onstart="" thumburl="panos/19-OGRENC_____SLER__.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/19-OGRENC_____SLER__.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/19-OGRENC_____SLER__.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_2-mu_kampus_ic" title="2-mu_kampus_ic" onstart="" thumburl="panos/2-mu_kampus_ic.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-80.358" vlookat="-2.297" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2-mu_kampus_ic.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/2-mu_kampus_ic.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-82.020" atv="-5.594" linkedscene="scene_1-mu_kampus_dis" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ DIŞ KAPI" />
+
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-155.680" atv="-6.426" linkedscene="scene_3-kampus_yol2" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ SÜREKLİ EĞİTİM MERKEZİ-1"/>
+	</scene>
+
+	<scene name="scene_20-H__SEY__N_DURAN_MYO_SEKRETER__" title="20-HÜSEYİN DURAN_MYO SEKRETERİ" onstart="" thumburl="panos/20-H__SEY__N_DURAN_MYO_SEKRETER__.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/20-H__SEY__N_DURAN_MYO_SEKRETER__.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/20-H__SEY__N_DURAN_MYO_SEKRETER__.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_21-ELEKTR__K_VE_ENERJ___LAB" title="21-ELEKTRİK VE ENERJİ LAB" onstart="" thumburl="panos/21-ELEKTR__K_VE_ENERJ___LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/21-ELEKTR__K_VE_ENERJ___LAB.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/21-ELEKTR__K_VE_ENERJ___LAB.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_22-ELEKTRON__K_TEKN__LAB" title="22-ELEKTRONİK TEKN. LAB" onstart="" thumburl="panos/22-ELEKTRON__K_TEKN__LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/22-ELEKTRON__K_TEKN__LAB.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/22-ELEKTRON__K_TEKN__LAB.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_23-F__BEROPT__K_LAB" title="23-FİBEROPTİK LAB" onstart="" thumburl="panos/23-F__BEROPT__K_LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/23-F__BEROPT__K_LAB.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/23-F__BEROPT__K_LAB.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_24-HABERLE__ME_TEKN__LAB" title="24-HABERLEŞME TEKN. LAB" onstart="" thumburl="panos/24-HABERLE__ME_TEKN__LAB.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/24-HABERLE__ME_TEKN__LAB.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/24-HABERLE__ME_TEKN__LAB.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_25-KONFERANS_SALONU" title="25-KONFERANS SALONU" onstart="" thumburl="panos/25-KONFERANS_SALONU.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/25-KONFERANS_SALONU.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/25-KONFERANS_SALONU.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_26-LAB_A" title="26-LAB A" onstart="" thumburl="panos/26-LAB_A.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/26-LAB_A.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/26-LAB_A.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_27-LAB_B" title="27-LAB B" onstart="" thumburl="panos/27-LAB_B.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/27-LAB_B.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/27-LAB_B.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_28-LAB_C" title="28-LAB C" onstart="" thumburl="panos/28-LAB_C.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/28-LAB_C.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/28-LAB_C.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_29-ODA1" title="29-ODA1" onstart="" thumburl="panos/29-ODA1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/29-ODA1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/29-ODA1.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_3-kampus_yol2" title="3-kampus_yol2" onstart="" thumburl="panos/3-kampus_yol2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="75.226" vlookat="2.590" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/3-kampus_yol2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/3-kampus_yol2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="17.475" atv="0.742" linkedscene="scene_2-mu_kampus_ic" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ İÇ KAPI"/>
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-177.925" atv="1.664" linkedscene="scene_4-kampus_yol1" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ SÜREKLİ EĞİTİM MERKEZİ-2"/>
+
+	</scene>
+
+	<scene name="scene_30-TEF_A212" title="30-TEF_A212" onstart="" thumburl="panos/30-TEF_A212.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/30-TEF_A212.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/30-TEF_A212.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_31-TEF_ON" title="31-TEF_ON" onstart="" thumburl="panos/31-TEF_ON.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-228.109" vlookat="-3.838" fovtype="MFOV" fov="133.648" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/31-TEF_ON.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/31-TEF_ON.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-170.932" atv="-5.507" linkedscene="scene_32-tef_main_g__r__s" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. GİRİŞ"/>
+
+	</scene>
+
+	<scene name="scene_32-TEF_MAIN_G__R__S" title="32-TEF_MAIN_GİRİS" onstart="" thumburl="panos/32-TEF_MAIN_G__R__S.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="122.320" vlookat="7.855" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/32-TEF_MAIN_G__R__S.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/32-TEF_MAIN_G__R__S.tiles/pano_%s.jpg" />
+		</image>
+
+
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="161.176" atv="-4.105" linkedscene="scene_34-tef_arka" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. ARKA BAHÇE"/>	
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="79.055" atv="-5.860" linkedscene="scene_33-tef_main_kapi" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. 2. KAPI"/>
+	
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="-55.524" atv="-2.856" linkedscene="scene_31-tef_on" distorted="false"  handcursor="true" tooltip="M.Ü. T.E.F. 2. KAPI"  /></scene>
+
+	<scene name="scene_33-TEF_MAIN_KAPI" title="33-TEF_MAIN_KAPI" onstart="" thumburl="panos/33-TEF_MAIN_KAPI.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="68.053" vlookat="-0.606" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/33-TEF_MAIN_KAPI.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/33-TEF_MAIN_KAPI.tiles/pano_%s.jpg" />
+		</image>
+
+
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="124.479" atv="-4.447" linkedscene="scene_32-tef_main_g__r__s" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. GİRİŞ"/>	</scene>
+
+	<scene name="scene_34-TEF_ARKA" title="34-TEF_ARKA" onstart="" thumburl="panos/34-TEF_ARKA.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-9.081" vlookat="-7.144" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/34-TEF_ARKA.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/34-TEF_ARKA.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="62.355" atv="-6.251" linkedscene="scene_6-tbmyo_anakapi" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ANA KAPI" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-93.913" atv="-10.884" linkedscene="scene_32-tef_main_g__r__s" distorted="false"  handcursor="true" tooltip="M.Ü. T.E.F. GİRİŞ"  />
+
+	</scene>
+
+	<scene name="scene_35-ALT_SINIF" title="35-ALT SINIF" onstart="" thumburl="panos/35-ALT_SINIF.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120.000s" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/35-ALT_SINIF.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/35-ALT_SINIF.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_4-kampus_yol1" title="4-kampus_yol1" onstart="" thumburl="panos/4-kampus_yol1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-16.223" vlookat="4.117" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/4-kampus_yol1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/4-kampus_yol1.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="-88.367" atv="-0.001" linkedscene="scene_3-kampus_yol2" distorted="false"  handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ SÜREKLİ EĞİTİM MERKEZİ-1"  />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="50.908" atv="-1.747" linkedscene="scene_5-kampus_capraz" distorted="false"  handcursor="true" tooltip="M.Ü. T.E.F. ANA KAPI" />
+
+	</scene>
+
+	<scene name="scene_5-kampus_capraz" title="5-kampus_capraz" onstart="" thumburl="panos/5-kampus_capraz.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="176.959" vlookat="5.373" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/5-kampus_capraz.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/5-kampus_capraz.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="106.505" atv="-0.053" linkedscene="scene_4-kampus_yol1" distorted="false" handcursor="true" tooltip="M.Ü. GÖZTEPE YERLEŞKESİ SÜREKLİ EĞİTİM MERKEZİ-2"  />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="-96.903" atv="-0.973" linkedscene="scene_6-tbmyo_anakapi" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ANA KAPI" />
+
+	</scene>
+
+	<scene name="scene_6-tbmyo_anakapi" title="6-tbmyo_anakapi" onstart="" thumburl="panos/6-tbmyo_anakapi.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="183.857" vlookat="-18.267" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/6-tbmyo_anakapi.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/6-tbmyo_anakapi.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot4" style="skin_hotspotstyle" ath="177.629" atv="-2.744" linkedscene="scene_7-tef_kat1" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. 1. KAT" />
+		<hotspot name="spot5" style="skin_hotspotstyle" ath="92.291" atv="-1.999" linkedscene="scene_5-kampus_capraz" distorted="false" handcursor="true" tooltip="M.Ü. T.E.F. ANA KAPI"  />
+		<hotspot name="spot6" style="skin_hotspotstyle" ath="122.459" atv="-2.082" linkedscene="scene_34-tef_arka" distorted="false" handcursor="true" tooltip="M.Ü. T.B.M.Y.O. ARKA BAHÇE" />
+
+	</scene>
+
+	<scene name="scene_7-TEF_KAT1" title="7-TEF_KAT1" onstart="" thumburl="panos/7-TEF_KAT1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/7-TEF_KAT1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/7-TEF_KAT1.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_8-TEF_KAT2" title="8-TEF_KAT2" onstart="" thumburl="panos/8-TEF_KAT2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/8-TEF_KAT2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/8-TEF_KAT2.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_9-TEF_KAT3_K1" title="9-TEF_KAT3_K1" onstart="" thumburl="panos/9-TEF_KAT3_K1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/9-TEF_KAT3_K1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/9-TEF_KAT3_K1.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+
+</krpano>

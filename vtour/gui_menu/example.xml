@@ -1,0 +1,152 @@
+<krpano onstart="initiate_menu(); loadscene(pano1_1,null,MERGE);">
+
+	<!-- include the menu -->
+	<include url="sidemenu.xml" />
+
+	<!-- define menu item -->
+	<group name="level_0">
+		<group name="object_1"  value="1. GROUP"             link="switch_menu(1);" />
+		<group name="object_2"  value="2. GROUP"             link="switch_menu(2);" />
+		<group name="object_3"  value="3. GROUP"             link="switch_menu(3);" />
+	</group>
+
+	<group name="level_1">
+		<group name="object_1"  value="GROUP 1 - element 1"  link="loadscene(pano1_1,null,MERGE,BLEND(0.5))" />
+		<group name="object_2"  value="GROUP 1 - element 2"  link="loadscene(pano1_2,null,MERGE,BLEND(0.5))" />
+		<group name="object_3"  value="GROUP 1 - element 3"  link="loadscene(pano1_3,null,MERGE,BLEND(0.5))" />
+	</group>
+
+	<group name="level_2">
+		<group name="object_1"  value="GROUP 2 - element 1"  link="loadscene(pano2_1,null,MERGE,BLEND(0.5))" />
+		<group name="object_2"  value="GROUP 2 - element 2"  link="loadscene(pano2_2,null,MERGE,BLEND(0.5))" />
+		<group name="object_3"  value="GROUP 2 - element 3"  link="loadscene(pano2_3,null,MERGE,BLEND(0.5))" />
+		<group name="object_4"  value="GROUP 2 - element 4"  link="loadscene(pano2_4,null,MERGE,BLEND(0.5))" />
+		<group name="object_5"  value="GROUP 2 - element 5"  link="loadscene(pano2_5,null,MERGE,BLEND(0.5))" />
+	</group>
+
+	<group name="level_3">
+		<group name="object_1"  value="GROUP 3 - element 1"  link="loadscene(pano3_1,null,MERGE,BLEND(0.5))" />
+		<group name="object_2"  value="GROUP 3 - element 2"  link="loadscene(pano3_2,null,MERGE,BLEND(0.5))" />
+		<group name="object_3"  value="GROUP 3 - element 3"  link="loadscene(pano3_3,null,MERGE,BLEND(0.5))" />
+		<group name="object_4"  value="GROUP 3 - element 4"  link="loadscene(pano3_4,null,MERGE,BLEND(0.5))" />
+		<group name="object_5"  value="GROUP 3 - element 5"  link="loadscene(pano3_5,null,MERGE,BLEND(0.5))" />
+		<group name="object_6"  value="GROUP 3 - element 6"  link="loadscene(pano3_6,null,MERGE,BLEND(0.5))" />
+	</group>
+
+
+	<!-- the pano scenes (just small and simple preview cubestrip imgages to keep the example small) -->
+	<scene name="pano1_1">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano1_1.jpg" />
+		<image>
+			<cubestrip url="panos/pano1_1.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano1_2">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano1_2.jpg" />
+		<image>
+			<cubestrip url="panos/pano1_2.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano1_3">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano1_3.jpg" />
+		<image>
+			<cubestrip url="panos/pano1_3.jpg" />
+		</image>
+	</scene>
+
+
+	<scene name="pano2_1">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano2_1.jpg" />
+		<image>
+			<cubestrip url="panos/pano2_1.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano2_2">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano2_2.jpg" />
+		<image>
+			<cubestrip url="panos/pano2_2.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano2_3">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano2_3.jpg" />
+		<image>
+			<cubestrip url="panos/pano2_3.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano2_4">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano2_4.jpg" />
+		<image>
+			<cubestrip url="panos/pano2_4.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano2_5">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano2_5.jpg" />
+		<image>
+			<cubestrip url="panos/pano2_5.jpg" />
+		</image>
+	</scene>
+
+	
+	<scene name="pano3_1">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano3_1.jpg" />
+		<image>
+			<cubestrip url="panos/pano3_1.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano3_2">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano3_2.jpg" />
+		<image>
+			<cubestrip url="panos/pano3_2.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano3_3">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano3_3.jpg" />
+		<image>
+			<cubestrip url="panos/pano3_3.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano3_4">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano3_4.jpg" />
+		<image>
+			<cubestrip url="panos/pano3_4.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano3_5">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano3_5.jpg" />
+		<image>
+			<cubestrip url="panos/pano3_5.jpg" />
+		</image>
+	</scene>
+	
+	<scene name="pano3_6">
+		<view hlookat="0" vlookat="0" fov="100" />
+		<preview url="panos/pano3_6.jpg" />
+		<image>
+			<cubestrip url="panos/pano3_6.jpg" />
+		</image>
+	</scene>
+
+</krpano>
